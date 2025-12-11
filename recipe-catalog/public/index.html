@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог рецептов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍳 Каталог рецептов</h1>
+            <p>Управляйте своей коллекцией рецептов через REST API</p>
+        </header>
+
+        <div class="controls">
+            <div class="filter-section">
+                <h3>Фильтры</h3>
+                <div class="filters">
+                    <input type="text" id="searchInput" placeholder="Поиск рецептов...">
+                    <select id="categoryFilter">
+                        <option value="">Все категории</option>
+                    </select>
+                    <select id="difficultyFilter">
+                        <option value="">Любая сложность</option>
+                        <option value="Легкая">Легкая</option>
+                        <option value="Средняя">Средняя</option>
+                        <option value="Сложная">Сложная</option>
+                    </select>
+                    <input type="number" id="ratingFilter" placeholder="Мин. рейтинг" min="0" max="5" step="0.1">
+                    <button onclick="loadRecipes()">Применить фильтры</button>
+                </div>
+            </div>
+
+            <div class="add-recipe">
+                <h3>Добавить новый рецепт</h3>
+                <form id="recipeForm">
+                    <input type="text" id="title" placeholder="Название рецепта" required>
+                    <input type="text" id="category" placeholder="Категория" required>
+                    <input type="number" id="prepTime" placeholder="Время приготовления (мин)" required>
+                    <input type="text" id="ingredients" placeholder="Ингредиенты (через запятую)" required>
+                    <textarea id="instructions" placeholder="Инструкции" rows="3" required></textarea>
+                    <select id="difficulty" required>
+                        <option value="">Выберите сложность</option>
+                        <option value="Легкая">Легкая</option>
+                        <option value="Средняя">Средняя</option>
+                        <option value="Сложная">Сложная</option>
+                    </select>
+                    <input type="number" id="rating" placeholder="Рейтинг (0-5)" min="0" max="5" step="0.1">
+                    <button type="submit">Добавить рецепт</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="recipes-section">
+            <h2>Все рецепты</h2>
+            <div class="recipes-grid" id="recipesContainer">
+                <!-- Рецепты будут загружены здесь -->
+            </div>
+        </div>
+
+        <div class="api-info">
+            <h3>Доступные API endpoints:</h3>
+            <ul>
+                <li><strong>GET /api/recipes</strong> - Получить все рецепты</li>
+                <li><strong>GET /api/recipes/:id</strong> - Получить рецепт по ID</li>
+                <li><strong>POST /api/recipes</strong> - Создать новый рецепт</li>
+                <li><strong>PUT /api/recipes/:id</strong> - Обновить рецепт</li>
+                <li><strong>DELETE /api/recipes/:id</strong> - Удалить рецепт</li>
+                <li><strong>GET /api/recipes/categories</strong> - Получить все категории</li>
+                <li><strong>GET /api/recipes/search?q=</strong> - Поиск рецептов</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Express.js приложение для каталога рецептов | Контрольная работа</p>
+        </footer>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Редактировать рецепт</h3>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <input type="text" id="editTitle" placeholder="Название рецепта" required>
+                <input type="text" id="editCategory" placeholder="Категория" required>
+                <input type="number" id="editPrepTime" placeholder="Время приготовления (мин)" required>
+                <input type="text" id="editIngredients" placeholder="Ингредиенты (через запятую)" required>
+                <textarea id="editInstructions" placeholder="Инструкции" rows="3" required></textarea>
+                <select id="editDifficulty" required>
+                    <option value="">Выберите сложность</option>
+                    <option value="Легкая">Легкая</option>
+                    <option value="Средняя">Средняя</option>
+                    <option value="Сложная">Сложная</option>
+                </select>
+                <input type="number" id="editRating" placeholder="Рейтинг (0-5)" min="0" max="5" step="0.1">
+                <button type="submit">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
